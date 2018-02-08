@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {HelloRequest, HelloReply} from "../generated/matoledgr_pb";
-import {Greeter} from "../generated/matoledgr_pb_service";
-import {grpc, Code, Metadata} from "grpc-web-client"
+import {HelloRequest, HelloReply, Product, ProductList, ProductRequest} from '../generated/matoledgr_pb';
+import {Greeter, Products} from '../generated/matoledgr_pb_service';
+import {grpc, Code} from 'grpc-web-client';
 
 @Component({
   selector: 'app-root',
@@ -11,39 +11,43 @@ import {grpc, Code, Metadata} from "grpc-web-client"
 export class AppComponent {
   title = 'matoledgr';
   greeting = 'not yet greeted';
+  products: Product[] = [];
 
-  public greet() {
-    console.log("started greeting");
+  public loadProducts() {
+    console.log('started load Products');
 
-    let helloRequest = new HelloRequest();
-    helloRequest.setName("angular");
+    const productRequest = new ProductRequest();
 
-    /*
-    grpc.invoke(Greeter.SayHello, {
+    grpc.unary(Products.ListProducts, {
       debug: true,
-      request: helloRequest,
-      host: "http://localhost:8080",
-      onHeaders: (headers: Metadata) => {
-        console.log("got headers: ", headers);
-      },
-      onMessage: (message: HelloReply) => {
-        console.log("got reply: ", message.toObject());
-        this.greeting = message.getMessage();
-      },
-      onEnd: (code: Code, msg: string | undefined, trailers: Metadata) => {
-        if (code == Code.OK) {
-          console.log("all ok");
+      request: productRequest,
+      host: 'http://localhost:8080',
+      onEnd: (res) => {
+        const { status, statusMessage, headers, message, trailers } = res;
+
+        // TODO: in result objekt schieben
+        const msg: ProductList = <ProductList>message;
+
+        if (status === Code.OK && message) {
+          console.log('OK')
+          this.products = msg.getProductsList();
         } else {
-          console.log("hit an error", code, msg, trailers);
+          console.log('Fehler', statusMessage);
         }
       }
     });
-    */
+  }
+
+  public greet() {
+    console.log('started greeting');
+
+    const helloRequest = new HelloRequest();
+    helloRequest.setName('angular');
 
     grpc.unary(Greeter.SayHello, {
       debug: true,
       request: helloRequest,
-      host: "http://localhost:8080",
+      host: 'http://localhost:8080',
       onEnd: (res) => {
           const { status, statusMessage, headers, message, trailers } = res;
 
@@ -51,15 +55,12 @@ export class AppComponent {
           const msg: HelloReply = <HelloReply>message;
 
           if (status === Code.OK && message) {
-            console.log("OK")
+            console.log('OK')
             this.greeting = msg.getMessage();
-          }
-          else {
-            console.log("Fehler", statusMessage);
+          } else {
+            console.log('Fehler', statusMessage);
           }
       }
     });
-
-
   }
 }

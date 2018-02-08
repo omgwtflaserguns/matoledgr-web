@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate": "protoc --plugin=protoc-gen-ts=/opt/node-v8.9.4-linux-x64/lib/node_modules/ts-protoc-gen/bin/protoc-gen-ts --js_out=import_style=commonjs,binary:src/generated --ts_out=service=true:src/generated -I ./contracts ./contracts/matoledgr.proto"
   },
   "private": true,
   "dependencies": {

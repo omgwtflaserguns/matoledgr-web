@@ -3,7 +3,13 @@
     <span>{{ title }}</span>
   </mat-toolbar>
 
-<button mat-button color="primary" (click)="greet()">Greet</button>
+<button mat-button color="primary" (click)="greet()">Greet</button> {{greeting}}
 
 
-{{greeting}}
+
+<button mat-button color="primary" (click)="loadProducts()">Load Products</button>
+<ul>
+  <li *ngFor="let product of products">{{product.getId()}} - {{product.getName()}} {{product.getPrice()}}€</li>
+</ul>
+
+
