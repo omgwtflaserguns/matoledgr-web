@@ -1,14 +1,9 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
-<h2>Greeter</h2>
 
-<button (click)="greet()">Greet</button>
+<mat-toolbar>
+    <span>{{ title }}</span>
+  </mat-toolbar>
+
+<button mat-button color="primary" (click)="greet()">Greet</button>
+
 
 {{greeting}}
-
-
-
