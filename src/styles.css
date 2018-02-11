@@ -14,7 +14,7 @@ body {
     src: url(./assets/material_icons_v36.woff2) format('woff2');
   }
   
-  .material-icons {
+.material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
@@ -28,4 +28,38 @@ body {
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
-  }
+}
+
+.mat-card.drink-card {
+    max-width: 250px;
+    margin-left: 25px;
+    display: flex;
+}
+
+.drink-card .drink-image {
+    height: 250px;
+}
+
+.drink-card .drink-infos {
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.drink-card .drink-infos .space-filler {
+    flex: 1 1 auto;
+}
+
+.drink-card .drink-title {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.drink-card .drink-price {
+    font-size: 14px;
+    color: rgba(0,0,0,.54);
+}
+
+.drink-card .drink-actions {
+    padding-left: 110px;
+}
