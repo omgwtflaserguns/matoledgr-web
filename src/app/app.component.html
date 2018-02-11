@@ -1,7 +1,20 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Profil</span>
+        </button>
+      </mat-menu>
+  <span>{{ title }}</span>
+</mat-toolbar>
 
-<mat-toolbar>
-    <span>{{ title }}</span>
-  </mat-toolbar>
 
 <button mat-button color="primary" (click)="greet()">Greet</button> {{greeting}}
 
@@ -11,5 +24,3 @@
 <ul>
   <li *ngFor="let product of products">{{product.getId()}} - {{product.getName()}} {{product.getPrice()}}€</li>
 </ul>
-
-
