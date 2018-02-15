@@ -53,4 +53,12 @@ export namespace Account {
     static readonly requestType = matomat_pb.LoginRequest;
     static readonly responseType = matomat_pb.LoginResponse;
   }
+  export class Register {
+    static readonly methodName = "Register";
+    static readonly service = Account;
+    static readonly requestStream = false;
+    static readonly responseStream = false;
+    static readonly requestType = matomat_pb.RegisterRequest;
+    static readonly responseType = matomat_pb.RegisterResponse;
+  }
 }

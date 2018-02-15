@@ -134,9 +134,6 @@ export namespace BuyRequest {
 }
 
 export class BuyResponse extends jspb.Message {
-  getStatus(): Status;
-  setStatus(value: Status): void;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): BuyResponse.AsObject;
   static toObject(includeInstance: boolean, msg: BuyResponse): BuyResponse.AsObject;
@@ -149,13 +146,60 @@ export class BuyResponse extends jspb.Message {
 
 export namespace BuyResponse {
   export type AsObject = {
-    status: Status,
+  }
+}
+
+export class RegisterRequest extends jspb.Message {
+  getUsername(): string;
+  setUsername(value: string): void;
+
+  getPassword(): string;
+  setPassword(value: string): void;
+
+  getEmail(): string;
+  setEmail(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RegisterRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RegisterRequest): RegisterRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: RegisterRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RegisterRequest;
+  static deserializeBinaryFromReader(message: RegisterRequest, reader: jspb.BinaryReader): RegisterRequest;
+}
+
+export namespace RegisterRequest {
+  export type AsObject = {
+    username: string,
+    password: string,
+    email: string,
+  }
+}
+
+export class RegisterResponse extends jspb.Message {
+  getStatus(): RegisterStatus;
+  setStatus(value: RegisterStatus): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RegisterResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RegisterResponse): RegisterResponse.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: RegisterResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RegisterResponse;
+  static deserializeBinaryFromReader(message: RegisterResponse, reader: jspb.BinaryReader): RegisterResponse;
+}
+
+export namespace RegisterResponse {
+  export type AsObject = {
+    status: RegisterStatus,
   }
 }
 
 export class LoginRequest extends jspb.Message {
-  getUser(): string;
-  setUser(value: string): void;
+  getUsername(): string;
+  setUsername(value: string): void;
 
   getPassword(): string;
   setPassword(value: string): void;
@@ -172,14 +216,14 @@ export class LoginRequest extends jspb.Message {
 
 export namespace LoginRequest {
   export type AsObject = {
-    user: string,
+    username: string,
     password: string,
   }
 }
 
 export class LoginResponse extends jspb.Message {
-  getStatus(): Status;
-  setStatus(value: Status): void;
+  getStatus(): LoginStatus;
+  setStatus(value: LoginStatus): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): LoginResponse.AsObject;
@@ -193,12 +237,18 @@ export class LoginResponse extends jspb.Message {
 
 export namespace LoginResponse {
   export type AsObject = {
-    status: Status,
+    status: LoginStatus,
   }
 }
 
-export enum Status {
-  OK = 0,
-  FAILED = 1,
+export enum RegisterStatus {
+  REGISTER_OK = 0,
+  REGISTER_NAME_ALREADY_IN_USE = 1,
+  REGISTER_PASSWORD_INVALID = 2,
+}
+
+export enum LoginStatus {
+  LOGIN_OK = 0,
+  LOGIN_FAILED = 1,
 }
 
