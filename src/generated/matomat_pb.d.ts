@@ -1,5 +1,5 @@
-// package: matoledgr
-// file: matoledgr.proto
+// package: matomat
+// file: matomat.proto
 
 import * as jspb from "google-protobuf";
 

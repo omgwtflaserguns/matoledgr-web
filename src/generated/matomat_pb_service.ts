@@ -1,9 +1,9 @@
-// package: matoledgr
-// file: matoledgr.proto
+// package: matomat
+// file: matomat.proto
 
-import * as matoledgr_pb from "./matoledgr_pb";
+import * as matomat_pb from "./matomat_pb";
 export class Greeter {
-  static serviceName = "matoledgr.Greeter";
+  static serviceName = "matomat.Greeter";
 }
 export namespace Greeter {
   export class SayHello {
@@ -11,12 +11,12 @@ export namespace Greeter {
     static readonly service = Greeter;
     static readonly requestStream = false;
     static readonly responseStream = false;
-    static readonly requestType = matoledgr_pb.HelloRequest;
-    static readonly responseType = matoledgr_pb.HelloReply;
+    static readonly requestType = matomat_pb.HelloRequest;
+    static readonly responseType = matomat_pb.HelloReply;
   }
 }
 export class Products {
-  static serviceName = "matoledgr.Products";
+  static serviceName = "matomat.Products";
 }
 export namespace Products {
   export class ListProducts {
@@ -24,12 +24,12 @@ export namespace Products {
     static readonly service = Products;
     static readonly requestStream = false;
     static readonly responseStream = false;
-    static readonly requestType = matoledgr_pb.ProductRequest;
-    static readonly responseType = matoledgr_pb.ProductList;
+    static readonly requestType = matomat_pb.ProductRequest;
+    static readonly responseType = matomat_pb.ProductList;
   }
 }
 export class Transaction {
-  static serviceName = "matoledgr.Transaction";
+  static serviceName = "matomat.Transaction";
 }
 export namespace Transaction {
   export class Buy {
@@ -37,12 +37,12 @@ export namespace Transaction {
     static readonly service = Transaction;
     static readonly requestStream = false;
     static readonly responseStream = false;
-    static readonly requestType = matoledgr_pb.BuyRequest;
-    static readonly responseType = matoledgr_pb.BuyResponse;
+    static readonly requestType = matomat_pb.BuyRequest;
+    static readonly responseType = matomat_pb.BuyResponse;
   }
 }
 export class Account {
-  static serviceName = "matoledgr.Account";
+  static serviceName = "matomat.Account";
 }
 export namespace Account {
   export class Login {
@@ -50,7 +50,7 @@ export namespace Account {
     static readonly service = Account;
     static readonly requestStream = false;
     static readonly responseStream = false;
-    static readonly requestType = matoledgr_pb.LoginRequest;
-    static readonly responseType = matoledgr_pb.LoginResponse;
+    static readonly requestType = matomat_pb.LoginRequest;
+    static readonly responseType = matomat_pb.LoginResponse;
   }
 }

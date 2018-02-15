@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('matoledgr-web App', () => {
+describe('matomat-web App', () => {
   let page: AppPage;
 
   beforeEach(() => {

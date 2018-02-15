@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HelloRequest, HelloReply, Product, ProductList, ProductRequest } from '../generated/matoledgr_pb';
-import { Greeter, Products } from '../generated/matoledgr_pb_service';
+import { HelloRequest, HelloReply, Product, ProductList, ProductRequest } from '../generated/matomat_pb';
+import { Greeter, Products } from '../generated/matomat_pb_service';
 import { grpc, Code } from 'grpc-web-client';
 import { PayConfirmDialogComponent } from './pay-confirm-dialog/pay-confirm-dialog.component';
 import {MatDialog} from '@angular/material';
@@ -11,7 +11,7 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'matoledgr';
+  title = 'matomat';
   greeting = 'not yet greeted';
   products: Product[] = [];
 
