@@ -1,3 +1,13 @@
-<p>
-  login works!
-</p>
+<form class="login-form">
+  <mat-form-field class="login-field">
+    <input matInput placeholder="Benutzername" [value]=benutzername>
+  </mat-form-field>
+
+  <mat-form-field class="login-field">
+    <input matInput placeholder="Passwort" [value]=passwort>
+  </mat-form-field>
+
+  <button mat-button color="primary" (click)="registrieren()">Registrieren</button>
+  <button mat-raised-button color="primary" (click)="einloggen()">Einloggen</button>
+
+</form>

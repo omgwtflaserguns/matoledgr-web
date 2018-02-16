@@ -12,6 +12,8 @@ import {
   , MatIconModule
   , MatCardModule
   , MatDialogModule
+  , MatInputModule
+  , MatFormFieldModule
 } from '@angular/material';
 import { PayConfirmDialogComponent } from './pay-confirm-dialog/pay-confirm-dialog.component';
 import { LoginComponent } from './login/login.component';
@@ -43,15 +45,17 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    ),
-    BrowserModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatDialogModule
+    )
+    , BrowserModule
+    , MatButtonModule
+    , MatToolbarModule
+    , MatMenuModule
+    , MatIconModule
+    , BrowserAnimationsModule
+    , MatCardModule
+    , MatDialogModule
+    , MatInputModule
+    , MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
