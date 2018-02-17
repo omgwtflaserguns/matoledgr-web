@@ -5,15 +5,15 @@
 
     <form class="login-form">
       <mat-form-field class="login-field">
-        <input matInput placeholder="Benutzername" [value]=benutzername>
+        <input matInput placeholder="Benutzername" [value]=username>
       </mat-form-field>
 
       <mat-form-field class="login-field">
-        <input matInput type="password" placeholder="Passwort" [value]=passwort>
+        <input matInput type="password" placeholder="Passwort" [value]=password>
       </mat-form-field>
 
-      <button mat-button color="primary" (click)="registrieren()">Registrieren</button>
-      <button mat-raised-button color="primary" (click)="einloggen()">Einloggen</button>
+      <button mat-button color="primary" (click)="register()">Registrieren</button>
+      <button mat-raised-button color="primary" (click)="login()">Einloggen</button>
 
     </form>
   </mat-card>
