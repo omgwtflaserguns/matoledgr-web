@@ -1,13 +1,20 @@
-<form class="login-form">
-  <mat-form-field class="login-field">
-    <input matInput placeholder="Benutzername" [value]=benutzername>
-  </mat-form-field>
+<div class="login-container">
 
-  <mat-form-field class="login-field">
-    <input matInput placeholder="Passwort" [value]=passwort>
-  </mat-form-field>
+  <mat-card class="login-card">
+    <h1>Anmeldung</h1>
 
-  <button mat-button color="primary" (click)="registrieren()">Registrieren</button>
-  <button mat-raised-button color="primary" (click)="einloggen()">Einloggen</button>
+    <form class="login-form">
+      <mat-form-field class="login-field">
+        <input matInput placeholder="Benutzername" [value]=benutzername>
+      </mat-form-field>
 
-</form>
+      <mat-form-field class="login-field">
+        <input matInput type="password" placeholder="Passwort" [value]=passwort>
+      </mat-form-field>
+
+      <button mat-button color="primary" (click)="registrieren()">Registrieren</button>
+      <button mat-raised-button color="primary" (click)="einloggen()">Einloggen</button>
+
+    </form>
+  </mat-card>
+</div>

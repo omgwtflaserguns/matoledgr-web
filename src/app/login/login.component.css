@@ -1,9 +1,13 @@
-.login-form {
-    min-width: 150px;
-    max-width: 300px;
-    width: 100%;
-  }
+.login-card {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  padding: 15px;
+  min-width: 150px;
+  max-width: 300px;
+  width: 100%;
+}
   
-  .login-form .login-field{
-    width: 100%;
-  }
+.login-form .login-field{
+  width: 100%;
+}
