@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
@@ -20,16 +21,6 @@ import { LoginComponent } from './login/login.component';
 import { DrinksComponent } from './drinks/drinks.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
-const appRoutes: Routes = [
-  { path: 'drinks', component: DrinksComponent },
-  { path: 'login', component: LoginComponent },
-  {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
-  { path: '**', component: PagenotfoundComponent }
-];
 
 @NgModule({
   declarations: [
@@ -43,10 +34,7 @@ const appRoutes: Routes = [
     PayConfirmDialogComponent
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    )
+    AppRoutingModule
     , BrowserModule
     , FormsModule
     , MatButtonModule
