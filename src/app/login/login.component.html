@@ -1,20 +1,24 @@
 <div class="login-container">
 
   <mat-card class="login-card">
+
     <h1>Anmeldung</h1>
 
-    <form class="login-form">
+    <form class="loginForm" #loginForm="ngForm">
+
       <mat-form-field class="login-field">
-        <input matInput placeholder="Benutzername" [value]=username>
+        <input matInput required type="text" placeholder="Benutzername" [(ngModel)]="username" name="username">
       </mat-form-field>
 
       <mat-form-field class="login-field">
-        <input matInput type="password" placeholder="Passwort" [value]=password>
+        <input matInput required type="password" placeholder="Passwort" [(ngModel)]="password" (keyup.enter)="login()" name="password">
       </mat-form-field>
-
-      <button mat-button color="primary" (click)="register()">Registrieren</button>
-      <button mat-raised-button color="primary" (click)="login()">Einloggen</button>
 
     </form>
+
+    <button mat-button color="primary" (click)="register()" [disabled]="!loginForm.form.valid">Registrieren</button>
+    <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.form.valid">Einloggen</button>
+
   </mat-card>
+  
 </div>
