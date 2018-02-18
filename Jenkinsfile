@@ -1,58 +1,65 @@
-#!groovy
-
-properties(
-    [
-        [$class: 'BuildDiscarderProperty', strategy:
-          [$class: 'LogRotator', artifactDaysToKeepStr: '14', artifactNumToKeepStr: '5', daysToKeepStr: '30', numToKeepStr: '60']],
-        pipelineTriggers(
-          [
-              pollSCM('H/15 * * * *'),
-              cron('@daily'),
-          ]
-        )
-    ]
-)
 node {
-    stage('Checkout') {
-        //disable to recycle workspace data to save time/bandwidth
-        deleteDir()
-        checkout scm
+    try{
+        ws("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/matomat-web") {
 
-        //enable for commit id in build number
-        env.git_commit_id = sh returnStdout: true, script: 'git rev-parse HEAD'
-        env.git_commit_id_short = env.git_commit_id.take(7)
-        currentBuild.displayName = "#${currentBuild.number}-${env.git_commit_id_short}"
-    }
 
-    stage('NPM Install') {
-        withEnv(["NPM_CONFIG_LOGLEVEL=warn"]) {
-            sh 'npm install'
+              stage('Checkout'){
+                  echo 'Checking out from ' + env.BRANCH_NAME
+                  checkout scm
+              }
+
+              stage('Get Dependencies'){
+                  echo 'Getting dependencies'
+                  sh 'npm install'
+              }
+
+              stage('Build'){
+                  echo 'Building'
+                  sh 'ng build --prod'
+              }
+
+              stage('Deploy'){
+
+                  if (env.BRANCH_NAME == 'master') {
+                      echo 'on master branch, deploy into test...'
+                      // sh 'cp ./matomat-server /var/lib/jenkins/userContent/matomat-server'
+                      // sh 'sudo /bin/sh /var/lib/jenkins/deployTest.sh'
+                  }
+                  else if (env.BRANCH_NAME == 'release') {
+                      echo 'on release branch, deploy into production...'
+                      // sh 'cp ./matomat-server /var/lib/jenkins/userContent/matomat-server'
+                      // sh 'sudo /bin/sh /var/lib/jenkins/deployProd.sh'
+                  }
+                  else {
+                      echo 'not on master or release, no deployment for you!'
+                  }
+              }
+
         }
+    }catch (e) {
+        currentBuild.result = "FAILED"
+    } finally {
+        notifyBuild(currentBuild.result)
     }
+}
 
-    stage('Test') {
-        //withEnv(["CHROME_BIN=/usr/bin/chromium-browser"]) {
-        //  sh 'ng test --progress=false --watch false'
-        //}
-        //junit '**/test-results.xml'
-    }
+def notifyBuild(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
-    stage('Lint') {
-        sh 'ng lint'
-    }
+  // Default values
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} <${env.BUILD_URL}|Job URL> - <${env.BUILD_URL}/console|Console Output>"
 
-    stage('Build') {
-        milestone()
-        sh 'ng build --prod --aot --sm --progress=false'
-    }
+  if (buildStatus == 'STARTED') {
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL') {
+    colorCode = '#00FF00'
+  } else {
+    colorCode = '#FF0000'
+  }
 
-    stage('Archive') {
-        sh 'tar -cvzf dist.tar.gz --strip-components=1 dist'
-        archive 'dist.tar.gz'
-    }
-
-    stage('Deploy') {
-        milestone()
-        echo "Deploying..."
-    }
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
 }
