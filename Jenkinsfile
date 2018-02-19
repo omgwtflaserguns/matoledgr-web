@@ -10,7 +10,7 @@ node {
 
               stage('Get Dependencies'){
                   echo 'Getting dependencies'
-                  sh 'npm install'
+                  sh 'yarn install --prod --non-interactive'
               }
 
               stage('Build'){
