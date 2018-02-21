@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductService } from './services/product.service';
 
 import {
   MatButtonModule
@@ -23,6 +24,9 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 
 @NgModule({
+  providers: [
+    ProductService
+  ],
   declarations: [
     AppComponent,
     PayConfirmDialogComponent,
@@ -47,7 +51,6 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     , MatInputModule
     , MatFormFieldModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

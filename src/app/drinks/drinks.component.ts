@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HelloRequest, HelloReply, Product, ProductList, ProductRequest } from '../../generated/matomat_pb';
-import { Greeter, Products } from '../../generated/matomat_pb_service';
-import { grpc, Code } from 'grpc-web-client';
+
+import { Product, ProductList } from '../../generated/matomat_pb';
 import { PayConfirmDialogComponent } from '../pay-confirm-dialog/pay-confirm-dialog.component';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
+import { ProductService } from '../services/product.service';
+
 @Component({
   selector: 'app-drinks',
   templateUrl: './drinks.component.html',
@@ -14,61 +15,15 @@ export class DrinksComponent implements OnInit {
   greeting = 'not yet greeted';
   products: Product[] = [];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private productService: ProductService) { }
 
   ngOnInit() {
     this.loadProducts();
   }
 
-  public loadProducts() {
-    console.log('started load Products');
-
-    const productRequest = new ProductRequest();
-
-    grpc.unary(Products.ListProducts, {
-      debug: true,
-      request: productRequest,
-      host: 'http://localhost:8080',
-      onEnd: (res) => {
-        const { status, statusMessage, headers, message, trailers } = res;
-
-        // TODO: in result objekt schieben
-        const msg: ProductList = <ProductList>message;
-
-        if (status === Code.OK && message) {
-          console.log('OK');
-          this.products = msg.getProductsList();
-        } else {
-          console.log('Fehler', statusMessage);
-        }
-      }
-    });
-  }
-
-  public greet() {
-    console.log('started greeting');
-
-    const helloRequest = new HelloRequest();
-    helloRequest.setName('angular');
-
-    grpc.unary(Greeter.SayHello, {
-      debug: true,
-      request: helloRequest,
-      host: 'http://localhost:8080',
-      onEnd: (res) => {
-        const { status, statusMessage, headers, message, trailers } = res;
-
-        // TODO: in result objekt schieben
-        const msg: HelloReply = <HelloReply>message;
-
-        if (status === Code.OK && message) {
-          console.log('OK');
-          this.greeting = msg.getMessage();
-        } else {
-          console.log('Fehler', statusMessage);
-        }
-      }
-    });
+  loadProducts(): Promise<Product[]> {
+    return this.productService.getProducts()
+      .then(products => this.products = products);
   }
 
   public pay(product: Product): void {
