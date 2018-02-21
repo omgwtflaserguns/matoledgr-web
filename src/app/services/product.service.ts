@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HelloRequest, HelloReply, Product, ProductList, ProductRequest } from '../../generated/matomat_pb';
-import { Greeter, Products } from '../../generated/matomat_pb_service';
+import { Products } from '../../generated/matomat_pb_service';
 import { grpc, Code } from 'grpc-web-client';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import {Product, ProductList, ProductRequest} from "../../generated/matomat_pb";
 
 @Injectable()
 export class ProductService {

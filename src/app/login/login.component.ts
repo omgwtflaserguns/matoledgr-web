@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Code, grpc} from "grpc-web-client";
+import {AccountRequest, LoginResponse } from "../../generated/matomat_pb";
+import {Account, Products} from "../../generated/matomat_pb_service";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +19,32 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     console.log("Login with: ", this.username, " ", this.password);
-    this.router.navigate(['/drinks']);
+
+    // TODO Quick and dirty...
+    const accountRequest = new AccountRequest();
+    accountRequest.setUsername(this.username);
+    accountRequest.setPassword(this.password);
+
+    grpc.unary(Account.Login, {
+      debug: true,
+      request: accountRequest,
+      host: 'http://localhost:8080',
+      onEnd: (res) => {
+        const { status, statusMessage, headers, message, trailers } = res;
+
+        // TODO: in result objekt schieben
+        const msg: LoginResponse = <LoginResponse>message;
+
+        if (status === Code.OK && message) {
+          console.log('Response:', msg.getStatus(), msg.getUser());
+        } else {
+          console.log('Fehler', statusMessage);
+        }
+      }
+    });
+
+
+    // this.router.navigate(['/drinks']);
   }
 
   public register(): void {
