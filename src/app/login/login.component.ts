@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {Code, grpc} from "grpc-web-client";
-import {AccountRequest, LoginResponse } from "../../generated/matomat_pb";
+import {AccountRequest, LoginResponse, RegisterResponse} from "../../generated/matomat_pb";
 import {Account, Products} from "../../generated/matomat_pb_service";
 
 @Component({
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
     grpc.unary(Account.Login, {
       debug: true,
       request: accountRequest,
-      host: 'http://localhost:8080',
+      // @Chris: Hier kann man etz relative Pfade nutzen
+      host: '/api',
       onEnd: (res) => {
         const { status, statusMessage, headers, message, trailers } = res;
 
@@ -49,6 +50,30 @@ export class LoginComponent implements OnInit {
 
   public register(): void {
     console.log("Would love to register with: ", this.username, " ", this.password);
+
+    // TODO Quick and dirty...
+    const accountRequest = new AccountRequest();
+    accountRequest.setUsername(this.username);
+    accountRequest.setPassword(this.password);
+
+    grpc.unary(Account.Register, {
+      debug: true,
+      request: accountRequest,
+      // @Chris: Hier kann man etz relative Pfade nutzen
+      host: '/api',
+      onEnd: (res) => {
+        const { status, statusMessage, headers, message, trailers } = res;
+
+        // TODO: in result objekt schieben
+        const msg: RegisterResponse = <RegisterResponse>message;
+
+        if (status === Code.OK && message) {
+          console.log('Response:', msg.getStatus());
+        } else {
+          console.log('Fehler', statusMessage);
+        }
+      }
+    });
   }
 
   ngOnInit() {
