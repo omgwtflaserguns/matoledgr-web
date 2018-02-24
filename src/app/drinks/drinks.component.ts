@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product, ProductList } from '../../generated/matomat_pb';
+import { Product } from '../../generated/matomat_pb';
 import { PayConfirmDialogComponent } from '../pay-confirm-dialog/pay-confirm-dialog.component';
 import { MatDialog } from '@angular/material';
 import { ProductService } from '../services/product.service';
@@ -11,14 +11,12 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./drinks.component.css']
 })
 export class DrinksComponent implements OnInit {
-  title = 'matomat';
-  greeting = 'not yet greeted';
   products: Product[] = [];
 
   constructor(public dialog: MatDialog, private productService: ProductService) { }
 
   ngOnInit() {
-    this.loadProducts();
+    return this.loadProducts();
   }
 
   loadProducts(): Promise<Product[]> {

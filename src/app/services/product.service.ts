@@ -15,11 +15,9 @@ export class ProductService {
       grpc.unary(Products.ListProducts, {
         debug: true,
         request: productRequest,
-        host: 'http://localhost:8080',
+        host: '/api',
         onEnd: (res) => {
-          const { status, statusMessage, headers, message, trailers } = res;
-
-          // TODO: in result objekt schieben
+          const { status, statusMessage, message } = res;
           const msg: ProductList = <ProductList>message;
 
           if (status === Code.OK && message) {
