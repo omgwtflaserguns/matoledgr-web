@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {grpc, Code} from 'grpc-web-client';
-import {AccountRequest, LoginResponse, LoginStatus, RegisterResponse, RegisterStatus} from "../../generated/matomat_pb";
-import {Account} from "../../generated/matomat_pb_service";
+import { Injectable } from '@angular/core';
+import { grpc, Code } from 'grpc-web-client';
+import { AccountRequest, User, LoginResponse, LoginStatus, RegisterResponse, RegisterStatus } from "../../generated/matomat_pb";
+import { Account } from "../../generated/matomat_pb_service";
 
 @Injectable()
-export class UserService {
+export class AccountService {
 
   constructor() {
   }
@@ -22,7 +22,7 @@ export class UserService {
         request: accountRequest,
         host: '/api',
         onEnd: (res) => {
-          const {status, statusMessage, message} = res;
+          const { status, statusMessage, message } = res;
           const msg: LoginResponse = <LoginResponse>message;
           if (status === Code.OK
             && msg.getStatus() === LoginStatus.LOGIN_OK) {
@@ -35,7 +35,7 @@ export class UserService {
     });
   }
 
-  public login(username: string, password: string): Promise<LoginStatus> {
+  public login(username: string, password: string): Promise<User> {
     return new Promise((resolve, reject) => {
 
       const accountRequest = new AccountRequest();
@@ -47,16 +47,13 @@ export class UserService {
         request: accountRequest,
         host: '/api',
         onEnd: (res) => {
-          const {status, statusMessage, message} = res;
-          const msg: LoginResponse = <LoginResponse>message;
-
-          if (status === Code.OK && message) {
-            console.log('Response:', msg.getStatus(), msg.getUser());
-            resolve(msg.getStatus());
-
+          const { status, message } = res;
+          const loginResponse: LoginResponse = <LoginResponse>message;
+          if (status === Code.OK
+            && loginResponse.getStatus() === LoginStatus.LOGIN_OK) {
+            resolve(loginResponse.getUser());
           } else {
-            console.log('Fehler', statusMessage);
-            reject(statusMessage);
+            reject("login nicht möglich");
           }
         }
       });
@@ -75,7 +72,7 @@ export class UserService {
         request: accountRequest,
         host: '/api',
         onEnd: (res) => {
-          const {status, statusMessage, message} = res;
+          const { status, statusMessage, message } = res;
           const msg: RegisterResponse = <RegisterResponse>message;
 
           if (status === Code.OK && message) {

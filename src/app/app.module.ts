@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductService } from './services/product.service';
-import { UserService } from './services/user.service';
+import { AccountService } from './services/account.service';
 
 import {
   MatButtonModule
@@ -26,7 +26,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 @NgModule({
   providers: [
     ProductService,
-    UserService
+    AccountService
   ],
   declarations: [
     AppComponent,

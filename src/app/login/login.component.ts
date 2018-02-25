@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {UserService} from "../services/user.service";
+import {AccountService} from "../services/account.service";
 
 @Component({
   selector: 'app-login',
@@ -12,23 +12,23 @@ export class LoginComponent implements OnInit {
   public password = "";
 
   constructor(private router: Router,
-              private userService: UserService) {
+              private accountService: AccountService) {
   }
 
   public login(): Promise<boolean | void> {
-    return this.userService.login(this.username, this.password)
+    return this.accountService.login(this.username, this.password)
       .then(() => this.router.navigate(['/drinks']))
       .catch(() => alert("login fehlgeschlagen"));
   }
 
   public register(): void {
-    this.userService.register(this.username, this.password)
+    this.accountService.register(this.username, this.password)
       .then(() => this.router.navigate(['/drinks']))
       .catch(() => alert("register fehlgeschlagen"));
   }
 
   ngOnInit() {
-    return this.userService.isLoggedIn()
+    return this.accountService.isLoggedIn()
       .then(() => this.router.navigate(['/drinks']))
       .catch(() => {
       });
