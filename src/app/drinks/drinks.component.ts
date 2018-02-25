@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Product } from '../../generated/matomat_pb';
 import { PayConfirmDialogComponent } from '../pay-confirm-dialog/pay-confirm-dialog.component';
-import { MatDialog } from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import { ProductService } from '../services/product.service';
+import {TransactionService} from "../services/transaction.service";
 
 @Component({
   selector: 'app-drinks',
@@ -13,7 +14,12 @@ import { ProductService } from '../services/product.service';
 export class DrinksComponent implements OnInit {
   products: Product[] = [];
 
-  constructor(public dialog: MatDialog, private productService: ProductService) { }
+  constructor(
+    public dialog: MatDialog,
+    private productService: ProductService,
+    private transactionService: TransactionService,
+    public snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     return this.loadProducts();
@@ -32,6 +38,17 @@ export class DrinksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(hasBezahlt => {
       console.log('Bezahlen bestätigt: ', hasBezahlt);
+
+      if (!hasBezahlt) {
+        return;
+      }
+
+      this.transactionService.buy(product.getId())
+        .then(() => {
+          this.snackBar.open("Kauf erfolgreich", null, { duration: 2000 });
+        }).catch(() => {
+          this.snackBar.open("Fehler. Bitte versuchen Sie es erneut.", null, { duration: 2000 });
+        });
     });
   }
 

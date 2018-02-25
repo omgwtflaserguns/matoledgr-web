@@ -22,12 +22,14 @@ import { PayConfirmDialogComponent } from './pay-confirm-dialog/pay-confirm-dial
 import { LoginComponent } from './login/login.component';
 import { DrinksComponent } from './drinks/drinks.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import {TransactionService} from "./services/transaction.service";
 
 
 @NgModule({
   providers: [
     ProductService,
-    AccountService
+    AccountService,
+    TransactionService
   ],
   declarations: [
     AppComponent,
