@@ -16,6 +16,7 @@ import {
   , MatDialogModule
   , MatInputModule
   , MatFormFieldModule
+  , MatSnackBarModule
 } from '@angular/material';
 import { PayConfirmDialogComponent } from './pay-confirm-dialog/pay-confirm-dialog.component';
 import { LoginComponent } from './login/login.component';
@@ -51,6 +52,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     , MatDialogModule
     , MatInputModule
     , MatFormFieldModule
+    , MatSnackBarModule
   ],
   bootstrap: [AppComponent]
 })

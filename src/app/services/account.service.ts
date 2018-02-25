@@ -73,10 +73,10 @@ export class AccountService {
         host: '/api',
         onEnd: (res) => {
           const { status, statusMessage, message } = res;
-          const msg: RegisterResponse = <RegisterResponse>message;
+          const registerResponse: RegisterResponse = <RegisterResponse>message;
 
-          if (status === Code.OK && message) {
-            resolve(msg.getStatus());
+          if (status === Code.OK && registerResponse) {
+            resolve(registerResponse.getStatus());
           } else {
             reject(statusMessage);
           }
